@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdrx.cnms.dao.UserMapper">
+  <!--根据用户查询-->
+  <select id="selectUser" parameterType="com.jdrx.cnms.bean.dto.LoginDTO" resultType="com.jdrx.cnms.bean.entity.User">
+    select 
+    login_name, password,name, email, phone,is_admin,id,create_date,update_date,del_flag
+    from sys_user
+    where login_name = #{loginName} and password=#{password}
+  </select>
+  <!-- 新增 -->
+  <insert id="insert" parameterType="com.jdrx.cnms.bean.entity.User">
+    INSERT INTO sys_user(
+    id,
+    name,
+    login_name,
+    password,
+    create_by,
+    update_by,
+    create_date,
+    update_date,
+    del_flag
+    ) VALUES (
+    #{id},
+    #{name},
+    #{loginName},
+    #{password},
+    #{createBy},
+    #{updateBy},
+    #{createDate},
+    #{updateDate},
+    #{delFlag}
+    )
+  </insert>
+
+  <!-- 更新 -->
+  <update id="update" parameterType="com.jdrx.cnms.bean.entity.User">
+    UPDATE sys_user SET
+    name = #{name},
+    password = #{password},
+    login_name = #{loginName},
+    update_by = #{updateBy},
+    update_date = #{updateDate}
+    WHERE id = #{id}
+  </update>
+
+  <!-- 逻辑删除 -->
+  <update id="deleteByUser" parameterType="com.jdrx.cnms.bean.entity.User">
+    UPDATE sys_user SET
+    del_flag = #{delFlag}
+    WHERE id = #{id}
+  </update>
+
+</mapper>
